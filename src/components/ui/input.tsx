@@ -47,7 +47,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               "h-11 w-full rounded-md border bg-surface px-3.5 text-body text-foreground placeholder:text-foreground-muted transition-colors duration-fast",
               "focus-visible:outline-none focus-visible:border-accent",
               hasError ? "border-danger" : "border-border-strong",
-              icon && "pl-10",
+              Boolean(icon) && "pl-10",
               disabled && "opacity-40 pointer-events-none",
               className
             )}
