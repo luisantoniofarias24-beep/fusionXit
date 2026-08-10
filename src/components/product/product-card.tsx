@@ -2,10 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { ShoppingBag } from "lucide-react";
 import type { Product } from "@/domain/product/types";
-import { Price } from "./price";
-import { Rating } from "./rating";
-import { Badge } from "./badge";
-import { IconButton } from "./icon-button";
+import { Price } from "@/components/ui/price";
+import { Rating } from "@/components/ui/rating";
+import { Badge } from "@/components/ui/badge";
+import { IconButton } from "@/components/ui/icon-button";
 import { calculateDiscountPercent } from "@/lib/format";
 import { cn } from "@/lib/cn";
 
