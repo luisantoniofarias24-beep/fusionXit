@@ -1,0 +1,13 @@
+## FusionXit — configuração Netlify
+## O Next.js é suportado nativamente pela Netlify: o pacote oficial
+## @netlify/plugin-nextjs é detectado e instalado automaticamente durante o
+## build, sem necessidade de configuração adicional para SSR/App Router.
+## Este arquivo só declara o comando de build e a versão do Node, que a
+## própria documentação da Netlify recomenda fixar para builds reprodutíveis.
+## Fonte verificada em: https://docs.netlify.com/build/frameworks/framework-setup-guides/nextjs/overview/
+
+[build]
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "20"

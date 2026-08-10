@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   FUSIONXIT — DESIGN TOKENS
+   Fonte única de verdade para cores, motion e foco.
+   Valores em "R G B" (sem vírgula) para permitir opacidade via Tailwind
+   (rgb(var(--x) / <alpha-value>)).
+
+   Preparado para Light Mode futuro: bastaria adicionar um bloco
+   `.light { --color-background: ...; }` sobrescrevendo as variáveis abaixo,
+   sem alterar nenhum componente.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Superfícies */
+  --color-background: 5 5 5;              /* #050505 */
+  --color-background-secondary: 10 10 11; /* #0A0A0B */
+  --color-surface: 15 15 17;              /* #0F0F11 */
+  --color-surface-hover: 21 21 24;        /* #151518 */
+  --color-surface-elevated: 26 26 30;     /* #1A1A1E */
+
+  /* Texto */
+  --color-foreground: 245 245 244;        /* off-white, não branco puro */
+  --color-foreground-secondary: 168 168 173; /* cinza claro */
+  --color-foreground-muted: 110 110 117;  /* cinza médio */
+
+  /* Bordas */
+  --color-border: 32 32 36;
+  --color-border-strong: 48 48 53;
+
+  /* Accent — azul elétrico premium (assinatura, não dominante) */
+  --color-accent: 56 118 255;             /* #3876FF */
+  --color-accent-hover: 91 145 255;       /* #5B91FF */
+  --color-accent-foreground: 5 5 5;
+
+  /* Semânticas */
+  --color-success: 52 199 123;
+  --color-warning: 230 168 66;
+  --color-danger: 235 88 88;
+
+  /* Motion */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+}
+
+* {
+  border-color: rgb(var(--color-border));
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font-family: var(--font-body);
+}
+
+/* Foco visível consistente — nunca removido sem substituto */
+:focus-visible {
+  outline: 2px solid rgb(var(--color-accent));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgb(var(--color-accent) / 0.35);
+  color: rgb(var(--color-foreground));
+}
+
+/* Respeita a preferência do usuário por menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Animações de entrada do Drawer — discretas, transform-based (120-300ms) */
+@keyframes drawer-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes drawer-in-left {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+.animate-drawer-in-right {
+  animation: drawer-in-right var(--duration-slow) var(--ease-premium);
+}
+.animate-drawer-in-left {
+  animation: drawer-in-left var(--duration-slow) var(--ease-premium);
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-drawer-in-right,
+  .animate-drawer-in-left {
+    animation: none;
+  }
+}
+
+/* Scrollbar discreta, coerente com a identidade dark/premium */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--color-background));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-surface-elevated));
+  border-radius: 999px;
+  border: 2px solid rgb(var(--color-background));
+}
