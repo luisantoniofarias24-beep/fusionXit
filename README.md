@@ -124,3 +124,4 @@ Ver `FUSIONXIT-NETLIFY-DEPLOY.md`.
 2. Adicionar autenticação real e proteger `/admin` no servidor.
 3. Integrar gateway de pagamento real no `/checkout`.
 4. Substituir dados/imagens demonstrativos pelo catálogo oficial.
+
