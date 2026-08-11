@@ -25,8 +25,8 @@ export function Hero() {
         <span className="text-label uppercase tracking-[0.16em] text-accent">
           FusionXit — Loja digital
         </span>
-        <h1 className="max-w-[16ch] text-balance break-words font-display text-[2rem] font-semibold uppercase leading-[1.06] tracking-tight text-foreground xs:text-[2.5rem] sm:text-[3.25rem] lg:text-[4.25rem]">
-          Melhore sua jogabilidade
+        <h1 className="max-w-[18ch] text-balance break-words font-display text-[2rem] font-semibold uppercase leading-[1.06] tracking-tight text-foreground xs:text-[2.5rem] sm:text-[3rem] lg:text-[4rem]">
+          Melhore sua jogabilidade com a FusionXit
         </h1>
         <p className="max-w-md text-body text-foreground-secondary sm:max-w-lg sm:text-body-lg">
           Produtos e serviços digitais para jogadores de Free Fire — configuração,
