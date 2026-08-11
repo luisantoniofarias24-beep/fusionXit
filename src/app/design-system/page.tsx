@@ -134,7 +134,7 @@ export default function DesignSystemPage() {
           {TYPE_SCALE.map((item) => (
             <div key={item.label} className="flex flex-col gap-1 border-b border-border/60 pb-4">
               <span className="text-caption text-foreground-muted">{item.label}</span>
-              <span className={item.className}>FusionXit — Tecnologia. Performance.</span>
+              <span className={item.className}>FusionXit — Melhore sua jogabilidade.</span>
             </div>
           ))}
         </div>
@@ -202,9 +202,9 @@ export default function DesignSystemPage() {
           <Badge variant="default">Default</Badge>
           <Badge variant="accent">Novo</Badge>
           <Badge variant="success">Disponível</Badge>
-          <Badge variant="warning">-20%</Badge>
-          <Badge variant="danger">Esgotado</Badge>
-          <Badge variant="neutral">Mais vendido</Badge>
+          <Badge variant="warning">Oferta −20%</Badge>
+          <Badge variant="danger">Indisponível</Badge>
+          <Badge variant="neutral">Destaque</Badge>
         </div>
       </LabSection>
 
@@ -232,10 +232,10 @@ export default function DesignSystemPage() {
       <LabSection title="Breadcrumb & SectionHeader">
         <Breadcrumb
           items={[
-            { label: "Home", href: "/" },
+            { label: "Início", href: "/" },
             { label: "Produtos", href: "/produtos" },
-            { label: "Áudio", href: "/categoria/audio" },
-            { label: "Fone Bluetooth FX Pro" },
+            { label: "Android", href: "/categoria/android" },
+            { label: "Guia de Sensibilidade — Android" },
           ]}
         />
         <SectionHeader

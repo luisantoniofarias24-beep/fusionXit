@@ -5,6 +5,9 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  // Artefatos de build não são código-fonte: sem isto, `npm run lint`
+  // executado depois de `npm run build` passa a analisar `.next/`.
+  { ignores: [".next/**", "out/**", "build/**", "next-env.d.ts"] },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {

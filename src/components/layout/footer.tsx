@@ -1,20 +1,28 @@
 import Link from "next/link";
 import { Container } from "@/components/ui/container";
+import { PLATFORM_LIST } from "@/domain/product/platform";
 
 const FOOTER_COLUMNS = [
   {
     title: "Navegação",
     links: [
+      { label: "Início", href: "/" },
       { label: "Produtos", href: "/produtos" },
-      { label: "Ofertas", href: "/produtos?promocao=1" },
     ],
+  },
+  {
+    title: "Plataformas",
+    links: PLATFORM_LIST.map((meta) => ({
+      label: meta.label,
+      href: `/categoria/${meta.categorySlug}`,
+    })),
   },
   {
     title: "Atendimento",
     links: [
-      { label: "Contato", href: "/contato" },
+      { label: "Suporte", href: "/contato" },
+      { label: "Entrega digital", href: "/entrega" },
       { label: "Trocas e devoluções", href: "/trocas-devolucoes" },
-      { label: "Entrega", href: "/entrega" },
     ],
   },
   {
@@ -38,11 +46,11 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-background-secondary">
       <Container>
-        <div className="grid grid-cols-2 gap-8 py-12 sm:grid-cols-4">
-          <div className="col-span-2 flex flex-col gap-3 sm:col-span-1">
+        <div className="grid grid-cols-2 gap-8 py-12 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="col-span-2 flex flex-col gap-3 sm:col-span-3 lg:col-span-1">
             <span className="font-display text-h4 font-semibold text-foreground">FUSIONXIT</span>
             <p className="text-body-sm text-foreground-muted">
-              Tecnologia. Performance. Evolução.
+              Produtos e serviços digitais para jogadores de Free Fire.
             </p>
           </div>
           {FOOTER_COLUMNS.map((column) => (
@@ -65,6 +73,7 @@ export function Footer() {
         </div>
         <div className="flex flex-col gap-2 border-t border-border py-6 text-caption text-foreground-muted sm:flex-row sm:items-center sm:justify-between">
           <span>&copy; {year} FusionXit. Todos os direitos reservados.</span>
+          <span>Produtos digitais — nenhum item é enviado fisicamente.</span>
         </div>
       </Container>
     </footer>

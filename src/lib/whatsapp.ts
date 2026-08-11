@@ -38,3 +38,14 @@ export function buildWhatsAppCheckoutUrl({ items, products, total }: BuildParams
 
   return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
+
+/**
+ * Monta a URL de atendimento via WhatsApp (dúvidas, suporte pós-compra).
+ * Assim como no checkout, retorna null quando não há número configurado —
+ * nenhum número é embutido no código. A UI deve oferecer o canal alternativo
+ * (página de contato) nesse caso.
+ */
+export function buildWhatsAppSupportUrl(message: string): string | null {
+  if (!whatsappNumber) return null;
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+}

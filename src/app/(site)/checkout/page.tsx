@@ -46,7 +46,7 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <Container className="flex flex-col gap-6 py-10">
-        <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Checkout" }]} />
+        <Breadcrumb items={[{ label: "Início", href: "/" }, { label: "Checkout" }]} />
         <EmptyState
           title="Seu carrinho está vazio"
           description="Adicione produtos ao carrinho antes de finalizar a compra."
@@ -62,7 +62,7 @@ export default function CheckoutPage() {
 
   return (
     <Container className="flex flex-col gap-8 py-10">
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Carrinho", href: "/carrinho" }, { label: "Checkout" }]} />
+      <Breadcrumb items={[{ label: "Início", href: "/" }, { label: "Carrinho", href: "/carrinho" }, { label: "Checkout" }]} />
 
       <div>
         <h1 className="font-display text-h1 text-foreground">Checkout</h1>

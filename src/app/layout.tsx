@@ -5,13 +5,37 @@ import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.fusionxit.com";
 
+const siteDescription =
+  "Loja digital de produtos e serviços para jogadores de Free Fire: guias de configuração, otimização, mentoria e conteúdo para Android, iPhone e PC.";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "FusionXit — Tecnologia. Performance. Evolução.",
+    default: "FusionXit — Produtos digitais para jogadores de Free Fire",
     template: "%s | FusionXit",
   },
-  description: "Produtos de tecnologia selecionados para quem exige mais.",
+  description: siteDescription,
+  keywords: [
+    "Free Fire",
+    "produtos digitais",
+    "guia de sensibilidade",
+    "configuração Android",
+    "configuração iPhone",
+    "emulador PC",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: "FusionXit",
+    url: siteUrl,
+    title: "FusionXit — Produtos digitais para jogadores de Free Fire",
+    description: siteDescription,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FusionXit — Produtos digitais para jogadores de Free Fire",
+    description: siteDescription,
+  },
 };
 
 /**

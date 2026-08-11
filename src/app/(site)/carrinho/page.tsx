@@ -44,7 +44,7 @@ export default function CartPage() {
 
   return (
     <Container className="flex flex-col gap-6 py-10">
-      <Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Carrinho" }]} />
+      <Breadcrumb items={[{ label: "Início", href: "/" }, { label: "Carrinho" }]} />
       <h1 className="font-display text-h1 text-foreground">Carrinho</h1>
 
       {items.length === 0 ? (

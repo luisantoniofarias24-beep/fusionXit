@@ -19,7 +19,7 @@ export function ProductShelf({
   if (products.length === 0) return null;
 
   return (
-    <section className="border-b border-border py-16">
+    <section className="border-b border-border py-14 sm:py-16">
       <Container className="flex flex-col gap-8">
         <SectionHeader
           eyebrow={eyebrow}

@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Product } from "@/domain/product/types";
+import { normalizeStoredProduct } from "@/domain/product/normalize";
 import { MOCK_PRODUCTS } from "@/data/mock/products";
 
 interface AdminProductsState {
@@ -48,6 +49,29 @@ export const useAdminProductsStore = create<AdminProductsState>()(
 
       getById: (id) => get().products.find((p) => p.id === id),
     }),
-    { name: "fusionxit-admin-products" }
+    {
+      name: "fusionxit-admin-products",
+      /**
+       * v2 — catálogo digital (plataforma, requisitos, compatibilidade,
+       * instruções, licença, entrega e suporte).
+       *
+       * Produtos salvos antes desta versão continuam válidos: passam por
+       * `normalizeStoredProduct`, que preenche os campos novos vazios e
+       * converte categorias antigas (áudio, computação, wearables,
+       * mobilidade) para uma plataforma suportada. Nada é descartado.
+       */
+      version: 2,
+      migrate: (persistedState) => {
+        const state = persistedState as { products?: unknown } | null;
+        if (!state || !Array.isArray(state.products)) {
+          return { products: MOCK_PRODUCTS } as AdminProductsState;
+        }
+        return {
+          products: state.products
+            .map(normalizeStoredProduct)
+            .filter((product): product is Product => product !== null),
+        } as AdminProductsState;
+      },
+    }
   )
 );

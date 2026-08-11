@@ -2,34 +2,42 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/home/hero";
 import { CategoriesSection } from "@/components/home/categories-section";
 import { ProductShelf } from "@/components/home/product-shelf";
+import { HowItWorksSection } from "@/components/home/how-it-works-section";
 import { BenefitsSection } from "@/components/home/benefits-section";
-import { NewsletterSection } from "@/components/home/newsletter-section";
+import { SupportSection } from "@/components/home/support-section";
+import { FaqSection } from "@/components/home/faq-section";
 import { productService } from "@/domain/product/product-service";
 import { categoryRepository } from "@/data/repositories";
 
 export const metadata: Metadata = {
-  title: "FusionXit — Tecnologia. Performance. Evolução.",
+  title: "FusionXit — Produtos digitais para jogadores de Free Fire",
+  description:
+    "Loja digital de produtos e serviços para jogadores de Free Fire: configuração, otimização e acompanhamento para Android, iPhone e PC.",
 };
 
 export default async function HomePage() {
-  const [categories, featured, bestsellers, newArrivals, onSale] = await Promise.all([
+  const [categories, featured, bestsellers, newArrivals] = await Promise.all([
     categoryRepository.getAll(),
     productService.getFeatured(),
     productService.getBestsellers(),
     productService.getNewArrivals(),
-    productService.getOnSale(),
   ]);
 
   return (
     <>
       <Hero />
       <CategoriesSection categories={categories} />
-      <ProductShelf eyebrow="Curadoria FusionXit" title="Destaques FusionXit" products={featured} />
-      <ProductShelf eyebrow="Os mais procurados" title="Mais vendidos" products={bestsellers} />
+      <ProductShelf
+        eyebrow="Seleção FusionXit"
+        title="Produtos em destaque"
+        products={featured}
+      />
+      <ProductShelf eyebrow="Procurados pelos jogadores" title="Mais procurados" products={bestsellers} />
       <ProductShelf eyebrow="Acabou de chegar" title="Novidades" products={newArrivals} />
-      <ProductShelf eyebrow="Por tempo limitado" title="Ofertas selecionadas" products={onSale} />
+      <HowItWorksSection />
       <BenefitsSection />
-      <NewsletterSection />
+      <SupportSection />
+      <FaqSection />
     </>
   );
 }

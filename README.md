@@ -1,6 +1,7 @@
 # FusionXit
 
-E-commerce premium de tecnologia. Next.js (App Router) + React + TypeScript
+Loja digital premium de produtos e serviços para jogadores de Free Fire
+(Android, iPhone e PC). Next.js (App Router) + React + TypeScript
 strict + Tailwind CSS + Lucide + Zustand. Sem backend nesta fase — dados
 locais/mock por trás de uma camada Repository/Service preparada para
 substituição futura por uma API real.

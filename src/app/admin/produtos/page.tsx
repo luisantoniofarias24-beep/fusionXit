@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Modal } from "@/components/ui/modal";
 import { formatCurrency } from "@/lib/format";
 import { useAdminProductsStore } from "@/store/admin-products-store";
+import { platformLabel } from "@/domain/product/platform";
 import type { Product } from "@/domain/product/types";
 
 export default function AdminProductsPage() {
@@ -33,9 +34,9 @@ export default function AdminProductsPage() {
             <tr>
               <th className="px-4 py-3 font-medium">Produto</th>
               <th className="px-4 py-3 font-medium">SKU</th>
-              <th className="px-4 py-3 font-medium">Categoria</th>
+              <th className="px-4 py-3 font-medium">Plataforma</th>
               <th className="px-4 py-3 font-medium">Preço</th>
-              <th className="px-4 py-3 font-medium">Estoque</th>
+              <th className="px-4 py-3 font-medium">Disponibilidade</th>
               <th className="px-4 py-3 font-medium">Status</th>
               <th className="px-4 py-3 font-medium text-right">Ações</th>
             </tr>
@@ -52,7 +53,9 @@ export default function AdminProductsPage() {
                   <span className="text-foreground">{product.name}</span>
                 </td>
                 <td className="px-4 py-3 text-foreground-muted">{product.sku}</td>
-                <td className="px-4 py-3 text-foreground-muted">{product.categoryId.replace("cat-", "")}</td>
+                <td className="px-4 py-3 text-foreground-muted">
+                  {platformLabel(product.platform)}
+                </td>
                 <td className="px-4 py-3 text-foreground">{formatCurrency(product.price)}</td>
                 <td className="px-4 py-3 text-foreground">{product.stock}</td>
                 <td className="px-4 py-3">

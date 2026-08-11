@@ -2,15 +2,21 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ShoppingBag, Zap } from "lucide-react";
-import type { Product } from "@/domain/product/types";
+import { Apple, Clock, Download, Monitor, ShoppingBag, Smartphone, Zap, type LucideIcon } from "lucide-react";
+import type { Product, ProductPlatform } from "@/domain/product/types";
+import { PLATFORMS } from "@/domain/product/platform";
 import { Price } from "@/components/ui/price";
-import { Rating } from "@/components/ui/rating";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { QuantitySelector } from "@/components/ui/quantity-selector";
 import { useCartStore } from "@/store/cart-store";
 import { useToastStore } from "@/store/toast-store";
+
+const PLATFORM_ICONS: Record<ProductPlatform, LucideIcon> = {
+  android: Smartphone,
+  ios: Apple,
+  pc: Monitor,
+};
 
 export function ProductBuyBox({ product }: { product: Product }) {
   const router = useRouter();
@@ -24,7 +30,9 @@ export function ProductBuyBox({ product }: { product: Product }) {
   const selectedVariant = product.variants.find((v) => v.id === selectedVariantId) ?? null;
   const effectiveStock = selectedVariant ? selectedVariant.stock : product.stock;
   const effectivePrice = product.price + (selectedVariant?.priceDelta ?? 0);
-  const isOutOfStock = effectiveStock <= 0;
+  const isUnavailable = effectiveStock <= 0;
+  const platform = PLATFORMS[product.platform];
+  const PlatformIcon = PLATFORM_ICONS[product.platform];
 
   function handleAddToCart() {
     addItem({
@@ -45,12 +53,19 @@ export function ProductBuyBox({ product }: { product: Product }) {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 rounded-pill border border-accent/30 bg-accent/10 px-2.5 py-1 text-caption uppercase tracking-wide text-accent">
+            <PlatformIcon className="size-3.5 shrink-0" aria-hidden="true" />
+            {platform.label}
+          </span>
+          {product.isNew && <Badge variant="accent">Novo</Badge>}
+          {product.featured && <Badge variant="neutral">Destaque</Badge>}
+        </div>
+        <h1 className="font-display text-h2 text-foreground sm:text-h1">{product.name}</h1>
         <span className="text-caption uppercase tracking-wide text-foreground-muted">
           SKU: {product.sku}
         </span>
-        <h1 className="font-display text-h1 text-foreground">{product.name}</h1>
-        <Rating value={product.rating} reviewsCount={product.reviewsCount} />
       </div>
 
       <Price price={effectivePrice} compareAtPrice={product.compareAtPrice} size="lg" />
@@ -81,23 +96,33 @@ export function ProductBuyBox({ product }: { product: Product }) {
         </div>
       ))}
 
-      <div className="flex items-center gap-3">
-        {isOutOfStock ? (
-          <Badge variant="danger">Esgotado</Badge>
-        ) : effectiveStock <= 5 ? (
-          <Badge variant="warning">Últimas {effectiveStock} unidades</Badge>
+      <div className="flex flex-wrap items-center gap-3">
+        {isUnavailable ? (
+          <Badge variant="danger">Indisponível</Badge>
         ) : (
-          <Badge variant="success">Em estoque</Badge>
+          <Badge variant="success">Disponível</Badge>
+        )}
+        {product.licenseDuration && (
+          <span className="inline-flex items-center gap-1.5 text-body-sm text-foreground-secondary">
+            <Clock className="size-4 shrink-0 text-foreground-muted" aria-hidden="true" />
+            {product.licenseDuration}
+          </span>
         )}
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
-        <QuantitySelector value={quantity} onChange={setQuantity} max={Math.min(20, effectiveStock || 1)} disabled={isOutOfStock} />
+      <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <QuantitySelector
+          value={quantity}
+          onChange={setQuantity}
+          max={Math.min(20, effectiveStock || 1)}
+          disabled={isUnavailable}
+        />
         <Button
           variant="secondary"
           size="lg"
-          iconLeft={<ShoppingBag className="size-4" aria-hidden="true" />}
-          disabled={isOutOfStock}
+          className="w-full sm:w-auto"
+          iconLeft={<ShoppingBag className="size-4 shrink-0" aria-hidden="true" />}
+          disabled={isUnavailable}
           onClick={handleAddToCart}
         >
           Adicionar ao carrinho
@@ -105,13 +130,24 @@ export function ProductBuyBox({ product }: { product: Product }) {
         <Button
           variant="primary"
           size="lg"
-          iconLeft={<Zap className="size-4" aria-hidden="true" />}
-          disabled={isOutOfStock}
+          className="w-full sm:w-auto"
+          iconLeft={<Zap className="size-4 shrink-0" aria-hidden="true" />}
+          disabled={isUnavailable}
           onClick={handleBuyNow}
         >
           Comprar agora
         </Button>
       </div>
+
+      {product.deliveryNote && (
+        <div className="flex gap-3 rounded-md border border-border bg-surface p-4">
+          <Download className="mt-0.5 size-4 shrink-0 text-accent" aria-hidden="true" />
+          <div className="flex flex-col gap-1">
+            <span className="text-label text-foreground">Entrega</span>
+            <p className="text-body-sm text-foreground-secondary">{product.deliveryNote}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
